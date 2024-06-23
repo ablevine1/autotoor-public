@@ -5,13 +5,10 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "dev": "turbo dev",
     "dev:mobile": "turbo dev --filter=\"{./apps/mobile}...\"",
-    "dev:tour": "turbo dev --filter=\"{./apps/tour-service}...\"",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build",
-    "build:mobile": "turbo build --filter=\"...{./apps/mobile}\"",
-    "build:tour": "turbo build --filter=\"...{./apps/tour}\"",
-    "build:docker:tour": "docker build -t tour-service . -f ./apps/tour-service/docker/Dockerfile"
+    "build:mobile": "turbo build --filter=\"...{./apps/mobile}\""
   },
   "devDependencies": {
     "turbo": "^1.10.7",
