@@ -10,6 +10,7 @@ import { LandmarkService } from './landmark.service';
 export class LandmarkController {
   private readonly landmarkService: LandmarkService;
 
+  // Injection via constructor
   constructor(landmarkService: LandmarkService) {
     this.landmarkService = landmarkService;
   }
