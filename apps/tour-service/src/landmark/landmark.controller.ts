@@ -1,9 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import {
-  DistanceUnit,
-  LocalLandmarkCriteria,
-  LocalLandmarkDetails,
-} from '../common';
+import { LocalLandmarkDetails } from '../common';
+import { LocalLandmarkSearchCriteriaDto } from './dto/local-landmark-search-criteria.dto';
 import { LandmarkService } from './landmark.service';
 
 @Controller('landmark/v1')
@@ -17,23 +14,16 @@ export class LandmarkController {
 
   @Get('/landmark/local')
   public async getLocalLandmarks(
-    @Query('latitude') latitude: number,
-    @Query('longitude') longitude: number,
-    @Query('distanceUnit') distanceUnit: DistanceUnit,
-    @Query('maxCount') maxCount: number,
+    @Query() criteria: LocalLandmarkSearchCriteriaDto,
   ): Promise<LocalLandmarkDetails[]> {
-    const criteria: LocalLandmarkCriteria = {
-      coordinates: {
-        latitude,
-        longitude,
-      },
-      maxCount,
-      distanceUnit,
-    };
     console.log(
       'Request made to LandmarkController.getLocalLandmarks with criteria',
       criteria,
     );
-    return this.landmarkService.getLocalLandmarks(criteria);
+    return this.landmarkService.getLocalLandmarks({
+      ...criteria,
+      // our internal LocalLandmarkCriteria interface has a coordinates as a property
+      coordinates: { ...criteria },
+    });
   }
 }
